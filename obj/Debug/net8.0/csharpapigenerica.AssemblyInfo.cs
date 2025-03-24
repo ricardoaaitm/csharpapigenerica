@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("csharpapigenerica")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f44725b0e798d3184d74556372c8f559d11f763")]
 [assembly: System.Reflection.AssemblyProductAttribute("csharpapigenerica")]
 [assembly: System.Reflection.AssemblyTitleAttribute("csharpapigenerica")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
