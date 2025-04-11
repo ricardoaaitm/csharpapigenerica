@@ -176,6 +176,7 @@ public DataTable EjecutarConsultaSql(string consultaSql, DbParameter[]? parametr
             var resultado = new DataSet();
             var adaptador = new SqlDataAdapter((SqlCommand)comando); // Crea un adaptador de datos para SQL Server.
 
+
             Console.WriteLine($"Ejecutando comando: {comando.CommandText}");
             adaptador.Fill(resultado); // Llena el DataSet con los resultados de la consulta.
             Console.WriteLine("DataSet lleno");

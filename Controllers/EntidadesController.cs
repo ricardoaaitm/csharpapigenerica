@@ -23,7 +23,7 @@ namespace csharpapigenerica.Controllers
     {
         private readonly ControlConexion controlConexion; // Servicio para manejar la conexión a la base de datos.
         private readonly IConfiguration _configuration; // Configuración de la aplicación para obtener valores de appsettings.json.
-        
+
         // Constructor que inyecta los servicios necesarios
         public EntidadesController(ControlConexion controlConexion, IConfiguration configuration)
         {
@@ -67,7 +67,7 @@ namespace csharpapigenerica.Controllers
         public IActionResult Listar(string nombreProyecto, string nombreTabla) // Método para listar los registros de una tabla específica.
         {
             // Verifica si el nombre de la tabla es nulo o vacío
-            if (string.IsNullOrWhiteSpace(nombreTabla)) 
+            if (string.IsNullOrWhiteSpace(nombreTabla))
                 return BadRequest("El nombre de la tabla no puede estar vacío.");
 
             try
@@ -83,7 +83,7 @@ namespace csharpapigenerica.Controllers
                 foreach (DataRow fila in tablaResultados.Rows)
                 {
                     var propiedadesFila = fila.Table.Columns.Cast<DataColumn>()
-                        .ToDictionary(columna => columna.ColumnName, 
+                        .ToDictionary(columna => columna.ColumnName,
                                     columna => fila[columna] == DBNull.Value ? null : fila[columna]);
                     listaFilas.Add(propiedadesFila); // Agrega la fila convertida a la lista.
                 }
@@ -115,6 +115,7 @@ namespace csharpapigenerica.Controllers
                 return StatusCode(codigoError, mensajeError); // Devuelve un mensaje de error con el código correspondiente.
             }
         }
+
 
 
         /// <summary>
@@ -262,7 +263,7 @@ namespace csharpapigenerica.Controllers
 
                 var resultado = controlConexion.EjecutarConsultaSql(comandoSQL, new DbParameter[] { parametro }); // Ejecuta la consulta SQL con el parámetro.
 
-                Console.WriteLine($"DataSet completado para la consulta: {comandoSQL}");
+
 
                 if (resultado.Rows.Count > 0) // Verifica si hay filas en el resultado.
                 {
@@ -345,24 +346,24 @@ namespace csharpapigenerica.Controllers
         {
             // Verifica si el nombre de la tabla es nulo o vacío, o si los datos a insertar están vacíos.
             if (string.IsNullOrWhiteSpace(nombreTabla) || datosEntidad == null || !datosEntidad.Any())
-                return BadRequest("El nombre de la tabla y los datos de la entidad no pueden estar vacíos.");  
-                // Retorna un error HTTP 400 si algún parámetro requerido está vacío.
+                return BadRequest("El nombre de la tabla y los datos de la entidad no pueden estar vacíos.");
+            // Retorna un error HTTP 400 si algún parámetro requerido está vacío.
 
             try
             {
                 // Convierte los datos recibidos en un diccionario con las claves y valores adecuados.
                 var propiedades = datosEntidad.ToDictionary(
-                    kvp => kvp.Key, 
-                    kvp => kvp.Value is JsonElement elementoJson 
+                    kvp => kvp.Key,
+                    kvp => kvp.Value is JsonElement elementoJson
                         ? ConvertirJsonElement(elementoJson) // Convierte valores JSON a tipos de datos de C#
-                        : kvp.Value 
+                        : kvp.Value
                 );
 
                 // Definir una lista de posibles nombres de claves que representan contraseñas.
                 var clavesContrasena = new[] { "password", "contrasena", "passw", "clave" };
 
                 // Verifica si alguno de los campos en los datos coincide con un posible campo de contraseña.
-                var claveContrasena = propiedades.Keys.FirstOrDefault(k => 
+                var claveContrasena = propiedades.Keys.FirstOrDefault(k =>
                     clavesContrasena.Any(pk => k.IndexOf(pk, StringComparison.OrdinalIgnoreCase) >= 0)
                 );
 
@@ -378,7 +379,7 @@ namespace csharpapigenerica.Controllers
                 }
 
                 // Obtiene el proveedor de base de datos desde la configuración.
-                string proveedor = _configuration["DatabaseProvider"] ?? 
+                string proveedor = _configuration["DatabaseProvider"] ??
                     throw new InvalidOperationException("Proveedor de base de datos no configurado.");
 
                 // Construye la lista de columnas y valores a insertar en la tabla.
@@ -389,7 +390,7 @@ namespace csharpapigenerica.Controllers
                 string consultaSQL = $"INSERT INTO {nombreTabla} ({columnas}) VALUES ({valores})";
 
                 // Crea los parámetros para la consulta SQL.
-                var parametros = propiedades.Select(p => 
+                var parametros = propiedades.Select(p =>
                     CrearParametro($"{ObtenerPrefijoParametro(proveedor)}{p.Key}", p.Value)
                 ).ToArray();
 
@@ -411,7 +412,7 @@ namespace csharpapigenerica.Controllers
             catch (Exception ex) // Captura cualquier error inesperado.
             {
                 Console.WriteLine($"Ocurrió una excepción: {ex.Message}"); // Imprime el error en la consola.
-                return StatusCode(500, $"Error interno del servidor: {ex.Message}"); 
+                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
                 // Retorna un error HTTP 500 indicando que ocurrió un problema en el servidor.
             }
         }
@@ -482,7 +483,7 @@ namespace csharpapigenerica.Controllers
                 // Verifica si hay un campo de contraseña en los datos, y si lo hay, lo hashea.
                 var clavesContrasena = new[] { "password", "contrasena", "passw", "clave" }; // Lista de posibles nombres para campos de contraseña.
                 var claveContrasena = propiedades.Keys.FirstOrDefault(k => clavesContrasena.Any(pk => k.IndexOf(pk, StringComparison.OrdinalIgnoreCase) >= 0)); // Busca si alguno de los campos es una contraseña.
-                
+
                 if (claveContrasena != null) // Si se encontró un campo de contraseña.
                 {
                     var contrasenaPlano = propiedades[claveContrasena]?.ToString(); // Obtiene el valor de la contraseña.
@@ -577,12 +578,12 @@ namespace csharpapigenerica.Controllers
         /// <response code="500">Error interno del servidor.</response>
         [AllowAnonymous] // Permite el acceso sin autenticación a este endpoint.
         [HttpPost("verificar-contrasena")] // Define la ruta HTTP POST como "/api/{nombreProyecto}/{nombreTabla}/verificar-contrasena".
-        public IActionResult VerificarContrasena(string nombreProyecto, string nombreTabla, [FromBody] Dictionary<string, string> datos) 
+        public IActionResult VerificarContrasena(string nombreProyecto, string nombreTabla, [FromBody] Dictionary<string, string> datos)
         // Método que verifica si la contraseña ingresada coincide con la almacenada en la base de datos.
         {
             // Verifica que los parámetros esenciales no sean nulos o vacíos.
-            if (string.IsNullOrWhiteSpace(nombreTabla) || datos == null || 
-                !datos.ContainsKey("campoUsuario") || !datos.ContainsKey("campoContrasena") || 
+            if (string.IsNullOrWhiteSpace(nombreTabla) || datos == null ||
+                !datos.ContainsKey("campoUsuario") || !datos.ContainsKey("campoContrasena") ||
                 !datos.ContainsKey("valorUsuario") || !datos.ContainsKey("valorContrasena"))
             {
                 return BadRequest("El nombre de la tabla, el campo de usuario, el campo de contraseña, el valor de usuario y el valor de contraseña no pueden estar vacíos.");
@@ -730,124 +731,730 @@ namespace csharpapigenerica.Controllers
 
 
 
-/// <summary>
-/// Ejecuta un procedimiento almacenado con los parámetros proporcionados.
-/// </summary>
-/// <param name="nombreProyecto">Nombre del proyecto al que pertenece la tabla.</param>
-/// <param name="nombreTabla">Nombre de la tabla relacionada con el procedimiento.</param>
-/// <param name="parametrosSP">Diccionario con el nombre del SP y sus parámetros.</param>
-/// <returns>Los resultados del procedimiento almacenado o un mensaje de error.</returns>
-/// <response code="200">Devuelve los resultados del procedimiento almacenado.</response>
-/// <response code="400">El nombre del SP no está especificado o los parámetros son inválidos.</response>
-/// <response code="500">Error al ejecutar el procedimiento almacenado.</response>
-[AllowAnonymous]
-[HttpPost("ejecutar-sp")]
-public IActionResult EjecutarProcedimientoAlmacenado(
-    string nombreProyecto, 
-    string nombreTabla, 
-    [FromBody] Dictionary<string, object> parametrosSP)
-{
-    if (parametrosSP == null || !parametrosSP.ContainsKey("nombreSP"))
-    {
-        return BadRequest("Debe proporcionar el nombre del SP y sus parámetros.");
-    }
+        /// <summary>
+        /// Ejecuta un procedimiento almacenado con los parámetros proporcionados.
+        /// </summary>
+        /// <param name="nombreProyecto">Nombre del proyecto al que pertenece la tabla.</param>
+        /// <param name="nombreTabla">Nombre de la tabla relacionada con el procedimiento.</param>
+        /// <param name="parametrosSP">Diccionario con el nombre del SP y sus parámetros.</param>
+        /// <returns>Los resultados del procedimiento almacenado o un mensaje de error.</returns>
+        /// <response code="200">Devuelve los resultados del procedimiento almacenado.</response>
+        /// <response code="400">El nombre del SP no está especificado o los parámetros son inválidos.</response>
+        /// <response code="500">Error al ejecutar el procedimiento almacenado.</response>
 
+        [AllowAnonymous]
+        [HttpPost("ejecutar-sp")]
+        public IActionResult EjecutarProcedimientoAlmacenado(
+            string nombreProyecto,
+            string nombreTabla,
+            [FromBody] Dictionary<string, object> parametrosSP)
+        {
+            if (parametrosSP == null || !parametrosSP.ContainsKey("nombreSP"))
+            {
+                return BadRequest("Debe proporcionar el nombre del SP y sus parámetros.");
+            }
+
+            try
+            {
+                // 1. Validar y obtener el nombre del SP
+                if (!parametrosSP.TryGetValue("nombreSP", out object? nombreSPObj) || nombreSPObj == null)
+                {
+                    return BadRequest("El parámetro 'nombreSP' es requerido.");
+                }
+                string nombreSP = nombreSPObj.ToString()!;
+
+                // 2. Convertir parámetros (manejar JsonElement para 'productos')
+                var parametros = new Dictionary<string, object>();
+                foreach (var kvp in parametrosSP)
+                {
+                    if (kvp.Key == "nombreSP") continue;
+
+                    if (kvp.Value is JsonElement jsonElement)
+                    {
+                        // Convertir JsonElement a string y eliminar escapes adicionales
+                        string jsonString = jsonElement.GetRawText();
+
+                        // Eliminar comillas iniciales y finales (si existen)
+                        if (jsonString.StartsWith("\"") && jsonString.EndsWith("\""))
+                        {
+                            jsonString = jsonString.Substring(1, jsonString.Length - 2);
+                        }
+
+                        // Reemplazar escapes de comillas dobles
+                        jsonString = jsonString.Replace("\\\"", "\""); // Elimina las barras invertidas escapadas
+
+                        parametros[kvp.Key] = jsonString;
+                    }
+                    else
+                    {
+                        parametros[kvp.Key] = kvp.Value;
+                    }
+                }
+
+                // Buscar campos de contraseña y encriptarlos
+                var clavesContrasena = new[] { "password", "contrasena", "passw", "clave" };
+
+                foreach (var key in parametros.Keys.ToList())
+                {
+                    // Comprobar si el nombre del parámetro parece ser una contraseña
+                    if (clavesContrasena.Any(pk => key.IndexOf(pk, StringComparison.OrdinalIgnoreCase) >= 0))
+                    {
+                        var contrasenaPlano = parametros[key]?.ToString();
+                        if (!string.IsNullOrEmpty(contrasenaPlano))
+                        {
+                            // Encriptar la contraseña
+                            parametros[key] = BCrypt.Net.BCrypt.HashPassword(contrasenaPlano);
+                            Console.WriteLine($"Contraseña encriptada para el parámetro: {key}");
+                        }
+                    }
+                }
+
+                // 3. Ejecutar el SP
+                controlConexion.AbrirBd();
+                using (var comando = new SqlCommand(nombreSP, controlConexion.ObtenerConexion() as SqlConnection))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    // Agregar parámetros al comando
+                    foreach (var param in parametros)
+                    {
+                        comando.Parameters.AddWithValue(
+                            $"@{param.Key}",
+                            param.Value ?? DBNull.Value
+                        );
+                    }
+
+                    // Ejecutar y obtener resultados
+                    var resultado = new DataTable();
+                    using (var adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(resultado);
+                    }
+
+                    controlConexion.CerrarBd();
+
+                    // Convertir resultados a JSON
+                    var lista = resultado.Rows.Cast<DataRow>()
+                        .Select(fila => resultado.Columns.Cast<DataColumn>()
+                            .ToDictionary(col => col.ColumnName, col => fila[col] == DBNull.Value ? null : fila[col]))
+                        .ToList();
+
+                    return Ok(lista);
+                }
+            }
+            catch (Exception ex)
+            {
+                controlConexion.CerrarBd();
+                return StatusCode(500, $"Error al ejecutar el SP: {ex.Message}");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("obtener-usuarios")]
+        public IActionResult ObtenerUsuarios()
+        {
+            try
+            {
+                var listaUsuarios = new List<Dictionary<string, object?>>(); // Lista para almacenar los resultados.
+
+                controlConexion.AbrirBd(); // Abre la conexión con la base de datos.
+
+                // Ejecuta el procedimiento almacenado
+                var tablaResultados = controlConexion.EjecutarConsultaSql("EXEC ObtenerUsuarios", null);
+
+                controlConexion.CerrarBd(); // Cierra la conexión.
+
+                // Procesa los resultados y los convierte en una lista de diccionarios
+                foreach (DataRow fila in tablaResultados.Rows)
+                {
+                    var propiedadesFila = fila.Table.Columns.Cast<DataColumn>()
+                        .ToDictionary(columna => columna.ColumnName,
+                                    columna => fila[columna] == DBNull.Value ? null : fila[columna]);
+
+                    listaUsuarios.Add(propiedadesFila);
+                }
+
+                return Ok(listaUsuarios); // Devuelve la lista en formato JSON con código 200.
+            }
+            catch (Exception ex)
+            {
+                int codigoError;
+                string mensajeError;
+
+                if (ex is SqlException sqlEx)
+                {
+                    // Mapea los errores SQL a códigos HTTP
+                    codigoError = sqlEx.Number switch
+                    {
+                        208 => 404, // Objeto no encontrado (por ejemplo, si el SP no existe)
+                        547 => 409, // Violación de restricción
+                        2627 => 409, // Clave duplicada (no aplica aquí, pero por estándar)
+                        _ => 500 // Otro error no identificado
+                    };
+                    mensajeError = $"Error ({codigoError}): {sqlEx.Message}";
+                }
+                else
+                {
+                    codigoError = 500;
+                    mensajeError = $"Error interno del servidor: {ex.Message}";
+                }
+
+                return StatusCode(codigoError, mensajeError); // Devuelve el error.
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet("ObtenerUsuarioPorEmail")]
+        public IActionResult ObtenerUsuarioPorEmail([FromQuery] string email)
+        {
+            try
+            {
+                controlConexion.AbrirBd();
+
+                var parametros = new[]
+                {
+            new SqlParameter("@Email", SqlDbType.NVarChar, 100) { Value = email }
+        };
+
+                var resultado = controlConexion.EjecutarConsultaSql("EXEC ObtenerUsuarioPorEmail @Email", parametros);
+
+                if (resultado.Rows.Count == 0)
+                {
+                    return NotFound("No se encontró ningún usuario con ese email.");
+                }
+
+                var listaUsuarios = ConvertirDataTableALista(resultado);
+
+                return Ok(listaUsuarios);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener el usuario por email: {ex.Message}");
+            }
+            finally
+            {
+                controlConexion.CerrarBd();
+            }
+        }
+
+        // Método helper privado para reutilizar la conversión de los datos al filtrar por email
+        private List<Dictionary<string, object?>> ConvertirDataTableALista(DataTable dataTable)
+        {
+            var lista = new List<Dictionary<string, object?>>();
+
+            foreach (DataRow fila in dataTable.Rows)
+            {
+                var diccionarioFila = dataTable.Columns.Cast<DataColumn>()
+                    .ToDictionary(
+                        columna => columna.ColumnName,
+                        columna => fila[columna] == DBNull.Value ? null : fila[columna]
+                    );
+
+                lista.Add(diccionarioFila);
+            }
+
+            return lista;
+        }
+
+        [AllowAnonymous]
+        [HttpPut("ActualizarUsuario")]
+        public IActionResult ActualizarUsuario([FromQuery] string email, [FromQuery] string contrasena)
+        {
+            try
+            {
+                controlConexion.AbrirBd();
+
+                var parametros = new[]
+                {
+            new SqlParameter("@Email", SqlDbType.NVarChar, 100) { Value = email },
+            new SqlParameter("@Contrasena", SqlDbType.NVarChar, 100) { Value = contrasena }
+        };
+
+                controlConexion.EjecutarConsultaSql("EXEC dbo.ActualizarUsuario @Email, @Contrasena", parametros);
+
+                return Ok("Usuario actualizado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar el usuario: {ex.Message}");
+            }
+            finally
+            {
+                controlConexion.CerrarBd();
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("EliminarUsuario")]
+        public IActionResult EliminarUsuario([FromQuery] string email)
+        {
+            try
+            {
+                controlConexion.AbrirBd();
+
+                var parametros = new[]
+                {
+            new SqlParameter("@Email", SqlDbType.NVarChar, 100) { Value = email }
+        };
+
+                controlConexion.EjecutarConsultaSql("EXEC dbo.EliminarUsuario @Email", parametros);
+
+                return Ok("Usuario eliminado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al eliminar el usuario: {ex.Message}");
+            }
+            finally
+            {
+                controlConexion.CerrarBd();
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("EliminarRolUsuario")]
+        public IActionResult EliminarRolUsuario([FromQuery] string email, [FromQuery] int idRol)
+        {
+            try
+            {
+                controlConexion.AbrirBd();
+
+                var parametros = new[]
+                {
+            new SqlParameter("@FkEmail", SqlDbType.NVarChar, 100) { Value = email },
+            new SqlParameter("@FkIdRol", SqlDbType.Int) { Value = idRol }
+        };
+
+                controlConexion.EjecutarConsultaSql("EXEC dbo.EliminarRolUsuario @FkEmail, @FkIdRol", parametros);
+
+                return Ok("Rol eliminado correctamente del usuario.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al eliminar el rol del usuario: {ex.Message}");
+            }
+            finally
+            {
+                controlConexion.CerrarBd();
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet("ObtenerRolesPorUsuario")]
+        public async Task<IActionResult> ObtenerRolesPorUsuario([FromQuery] string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest("El parámetro 'email' es obligatorio.");
+            }
+
+            try
+            {
+
+                var roles = new List<object>();
+
+                using (var connection = new SqlConnection("Server=DESKTOP-0433LGB\\SQLEXPRESS;Database=bdindicadores1330;Integrated Security=True;TrustServerCertificate=True;"))
+                {
+                    await connection.OpenAsync();
+                   
+
+                    using (var command = new SqlCommand("ObtenerRolesPorUsuario", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure; 
+
+                        command.Parameters.AddWithValue("@FkEmail", email);
+
+
+                        using (var reader = await command.ExecuteReaderAsync())
+                        {
+
+
+                            while (await reader.ReadAsync())
+                            {
+                                var idRol = reader.GetInt32(reader.GetOrdinal("IdRol"));
+                                var nombreRol = reader.GetString(reader.GetOrdinal("NombreRol"));
+
+
+
+                                roles.Add(new
+                                {
+                                    IdRol = idRol,
+                                    NombreRol = nombreRol
+                                });
+                            }
+                        }
+                    }
+                }
+
+                if (roles.Count == 0)
+                {
+
+                    return NotFound("No se encontraron roles para el usuario proporcionado.");
+                }
+
+                return Ok(roles);
+            }
+            catch (Exception ex)
+            {
+
+
+                return StatusCode(500, $"Error al obtener roles: {ex.Message} | Stack: {ex.StackTrace}");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("ObtenerUsuariosPorRol/{FkIdRol}")]
+        public IActionResult ObtenerUsuariosPorRol(int FkIdRol)
+        {
+            List<string> usuarios = new List<string>();
+
+            try
+            {
+                string cadenaConexion = "Server=DESKTOP-0433LGB\\SQLEXPRESS;Database=bdindicadores1330;Integrated Security=True;TrustServerCertificate=True;";
+
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+
+                    using (SqlCommand comando = new SqlCommand("EXEC dbo.ObtenerUsuariosPorRol @FkIdRol", conexion))
+                    {
+                        comando.Parameters.AddWithValue("@FkIdRol", FkIdRol);
+
+                        using (SqlDataReader reader = comando.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var email = reader["email"]?.ToString();
+                                if (!string.IsNullOrEmpty(email))
+                                {
+                                    usuarios.Add(email);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return Ok(new { usuarios });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpPut("ActualizarRolPorId")]
+        public IActionResult ActualizarRolPorId(int id, string nombre)
+        {
+            try
+            {
+                string cadenaConexion = "Server=DESKTOP-0433LGB\\SQLEXPRESS;Database=bdindicadores1330;Integrated Security=True;TrustServerCertificate=True";
+
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+
+                    using (SqlCommand comando = new SqlCommand("EXEC dbo.ActualizarRolPorId @Id, @Nombre", conexion))
+                    {
+                        comando.Parameters.AddWithValue("@Id", id);
+                        comando.Parameters.AddWithValue("@Nombre", nombre);
+
+                        int filasAfectadas = comando.ExecuteNonQuery();
+
+                        if (filasAfectadas > 0)
+                        {
+                            return Ok(new { mensaje = "Rol actualizado correctamente." });
+                        }
+                        else
+                        {
+                            return NotFound(new { mensaje = "No se encontró un rol con el ID especificado." });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("CrearRol")]
+        public IActionResult CrearRol([FromQuery] string nombre)
+        {
+            try
+            {
+                controlConexion.AbrirBd();
+
+                var parametros = new[]
+                {
+            new SqlParameter("@Nombre", SqlDbType.NVarChar, 100) { Value = nombre }
+        };
+
+                var resultado = controlConexion.EjecutarConsultaSql("EXEC CrearRol @Nombre", parametros);
+
+                return Ok("Rol creado correctamente.");
+            }
+            catch (SqlException sqlEx)
+            {
+               
+                return StatusCode(500, $"Error de base de datos al crear el rol: {sqlEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al crear el rol: {ex.Message}");
+            }
+            finally
+            {
+                controlConexion.CerrarBd();
+            }
+        }
+
+ [AllowAnonymous]
+[HttpDelete("eliminar")]
+public IActionResult EliminarRol([FromQuery] int id)
+{
     try
     {
-        // 1. Validar y obtener el nombre del SP
-        if (!parametrosSP.TryGetValue("nombreSP", out object? nombreSPObj) || nombreSPObj == null)
-        {
-            return BadRequest("El parámetro 'nombreSP' es requerido.");
-        }
-        string nombreSP = nombreSPObj.ToString()!;
-
-        // 2. Convertir parámetros (manejar JsonElement para 'productos')
-        var parametros = new Dictionary<string, object>();
-        foreach (var kvp in parametrosSP)
-        {
-            if (kvp.Key == "nombreSP") continue;
-
-            if (kvp.Value is JsonElement jsonElement)
-            {
-                // Convertir JsonElement a string y eliminar escapes adicionales
-                string jsonString = jsonElement.GetRawText();
-                
-                // Eliminar comillas iniciales y finales (si existen)
-                if (jsonString.StartsWith("\"") && jsonString.EndsWith("\""))
-                {
-                    jsonString = jsonString.Substring(1, jsonString.Length - 2);
-                }
-                
-                // Reemplazar escapes de comillas dobles
-                jsonString = jsonString.Replace("\\\"", "\""); // Elimina las barras invertidas escapadas
-                
-                parametros[kvp.Key] = jsonString;
-            }
-            else
-            {
-                parametros[kvp.Key] = kvp.Value;
-            }
-        }
-
-        // Buscar campos de contraseña y encriptarlos
-        var clavesContrasena = new[] { "password", "contrasena", "passw", "clave" };
-        
-        foreach (var key in parametros.Keys.ToList())
-        {
-            // Comprobar si el nombre del parámetro parece ser una contraseña
-            if (clavesContrasena.Any(pk => key.IndexOf(pk, StringComparison.OrdinalIgnoreCase) >= 0))
-            {
-                var contrasenaPlano = parametros[key]?.ToString();
-                if (!string.IsNullOrEmpty(contrasenaPlano))
-                {
-                    // Encriptar la contraseña
-                    parametros[key] = BCrypt.Net.BCrypt.HashPassword(contrasenaPlano);
-                    Console.WriteLine($"Contraseña encriptada para el parámetro: {key}");
-                }
-            }
-        }
-
-        // 3. Ejecutar el SP
         controlConexion.AbrirBd();
-        using (var comando = new SqlCommand(nombreSP, controlConexion.ObtenerConexion() as SqlConnection))
+
+        var parametros = new[]
         {
-            comando.CommandType = CommandType.StoredProcedure;
+            new SqlParameter("@Id", SqlDbType.Int) { Value = id }
+        };
 
-            // Agregar parámetros al comando
-            foreach (var param in parametros)
-            {
-                comando.Parameters.AddWithValue(
-                    $"@{param.Key}", 
-                    param.Value ?? DBNull.Value
-                );
-            }
+        controlConexion.EjecutarConsultaSql("EXEC dbo.EliminarRolPorId @Id", parametros);
 
-            // Ejecutar y obtener resultados
-            var resultado = new DataTable();
-            using (var adaptador = new SqlDataAdapter(comando))
-            {
-                adaptador.Fill(resultado);
-            }
-
-            controlConexion.CerrarBd();
-
-            // Convertir resultados a JSON
-            var lista = resultado.Rows.Cast<DataRow>()
-                .Select(fila => resultado.Columns.Cast<DataColumn>()
-                    .ToDictionary(col => col.ColumnName, col => fila[col] == DBNull.Value ? null : fila[col]))
-                .ToList();
-
-            return Ok(lista);
-        }
+        return Ok("Rol eliminado correctamente.");
     }
     catch (Exception ex)
     {
+        return StatusCode(500, $"Error al eliminar el rol: {ex.Message}");
+    }
+    finally
+    {
         controlConexion.CerrarBd();
-        return StatusCode(500, $"Error al ejecutar el SP: {ex.Message}");
     }
 }
 
+[AllowAnonymous]
+[HttpGet("ObtenerRolPorId/{id}")]
+public IActionResult ObtenerRolPorId(int id)
+{
+    var connectionString = "Server=DESKTOP-0433LGB\\SQLEXPRESS;Database=bdindicadores1330;Integrated Security=True;TrustServerCertificate=True";
+    var dataTable = new DataTable();
+
+    try
+    {
+        using (var connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+
+            using (var command = new SqlCommand("ObtenerRolPorId", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Id", id);
+
+                using (var adapter = new SqlDataAdapter(command))
+                {
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            connection.Close();
+        }
+
+        // Validamos si hay datos
+        if (dataTable.Rows.Count == 0)
+        {
+            return NotFound(new { message = "Rol no encontrado." });
+        }
+
+        // Proyección limpia del resultado
+        var resultado = dataTable.AsEnumerable().Select(row => new
+        {
+            Id = row.Field<int>("Id"),
+            Nombre = row.Field<string>("Nombre")
+        }).FirstOrDefault();
+
+        return Ok(resultado);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { message = "Error al obtener el rol.", error = ex.Message });
+    }
 }
+
+[AllowAnonymous]
+[HttpGet("ObtenerRoles")]
+public IActionResult ObtenerRoles()
+{
+    var connectionString = "Server=DESKTOP-0433LGB\\SQLEXPRESS;Database=bdindicadores1330;Integrated Security=True;TrustServerCertificate=True";
+    var dataTable = new DataTable();
+
+    try
+    {
+        using (var connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+
+            using (var command = new SqlCommand("ObtenerRoles", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                using (var adapter = new SqlDataAdapter(command))
+                {
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            connection.Close();
+        }
+
+        // Validamos si hay datos
+        if (dataTable.Rows.Count == 0)
+        {
+            return NotFound(new { message = "No se encontraron roles." });
+        }
+
+        // Proyección limpia del resultado
+        var resultado = dataTable.AsEnumerable().Select(row => new
+        {
+            Id = row.Field<int>("id"),
+            Nombre = row.Field<string>("nombre")
+        }).ToList();
+
+        return Ok(resultado);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, new { message = "Error al obtener los roles.", error = ex.Message });
+    }
+}
+
+
+
+
+        // [AllowAnonymous]
+        // [HttpPost("CrearUsuario")]
+        // public IActionResult CrearUsuario(string email, string nuevaContrasena)
+        // {
+        //     try
+        //     {
+        //         // Verificar que los parámetros no estén vacíos o nulos
+        //         if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(nuevaContrasena))
+        //             return BadRequest("El email y la nueva contraseña no pueden estar vacíos.");
+
+        //         controlConexion.AbrirBd(); // Abrimos conexión
+
+        //         // Preparar los parámetros para el procedimiento almacenado
+        //         var parametros = new List<SqlParameter>
+        //         {
+        //             new SqlParameter("@Email", SqlDbType.VarChar) { Value = email },
+        //             new SqlParameter("@contrasena", SqlDbType.VarChar) { Value = nuevaContrasena }
+        //             // new SqlParameter("@NuevoRol", SqlDbType.Int) { Value = nuevoRol }
+        //         };
+
+        //         // Ejecutamos el procedimiento almacenado
+        //         controlConexion.EjecutarConsultaSql("EXEC dbo.CrearUsuario @Email, @contrasena", parametros.ToArray());
+
+        //         controlConexion.CerrarBd(); // Cerramos conexión
+
+        //         return Ok("Usuario actualizado correctamente.");
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         int codigoError;
+        //         string mensajeError;
+
+        //         if (ex is SqlException sqlEx)
+        //         {
+        //             codigoError = sqlEx.Number switch
+        //             {
+        //                 547 => 409, // Violación de restricción (clave foránea)
+        //                 2627 => 409, // Clave única duplicada
+        //                 _ => 500 // Otros errores
+        //             };
+        //             mensajeError = $"Error SQL ({codigoError}): {sqlEx.Message}";
+        //         }
+        //         else
+        //         {
+        //             codigoError = 500;
+        //             mensajeError = $"Error interno del servidor: {ex.Message}";
+        //         }
+
+        //         return StatusCode(codigoError, mensajeError);
+        //     }
+        // }
+
+        [AllowAnonymous]
+        [HttpGet("ejecutar-sp")]
+        public IActionResult EjecutarProcedimientoAlmacenadoGet(
+            string nombreProyecto,
+            string nombreTabla,
+            string nombreSP,
+            [FromQuery] Dictionary<string, string> parametrosQuery)
+        {
+            try
+            {
+                // Convertir los parámetros del query string, omitiendo los que ya están como argumentos
+                var parametros = parametrosQuery
+                    .Where(kvp => kvp.Key != "nombreSP")
+                    .ToDictionary(kvp => kvp.Key, kvp => (object)kvp.Value);
+
+                // Encriptar contraseñas si corresponde
+                var clavesContrasena = new[] { "password", "contrasena", "passw", "clave" };
+                foreach (var key in parametros.Keys.ToList())
+                {
+                    if (clavesContrasena.Any(pk => key.IndexOf(pk, StringComparison.OrdinalIgnoreCase) >= 0))
+                    {
+                        var contrasenaPlano = parametros[key]?.ToString();
+                        if (!string.IsNullOrEmpty(contrasenaPlano))
+                        {
+                            parametros[key] = BCrypt.Net.BCrypt.HashPassword(contrasenaPlano);
+                            Console.WriteLine($"Contraseña encriptada para el parámetro: {key}");
+                        }
+                    }
+                }
+
+                controlConexion.AbrirBd();
+                using (var comando = new SqlCommand(nombreSP, controlConexion.ObtenerConexion() as SqlConnection))
+                {
+                    comando.CommandType = CommandType.StoredProcedure;
+
+                    foreach (var param in parametros)
+                    {
+                        comando.Parameters.AddWithValue($"@{param.Key}", param.Value ?? DBNull.Value);
+                    }
+
+                    var resultado = new DataTable();
+                    using (var adaptador = new SqlDataAdapter(comando))
+                    {
+                        adaptador.Fill(resultado);
+                    }
+
+                    controlConexion.CerrarBd();
+
+                    var lista = resultado.Rows.Cast<DataRow>()
+                        .Select(fila => resultado.Columns.Cast<DataColumn>()
+                            .ToDictionary(col => col.ColumnName, col => fila[col] == DBNull.Value ? null : fila[col]))
+                        .ToList();
+
+                    return Ok(lista);
+                }
+            }
+            catch (Exception ex)
+            {
+                controlConexion.CerrarBd();
+                return StatusCode(500, $"Error al ejecutar el SP: {ex.Message}");
+            }
+        }
+
+
+    }
 }
 
 /*
