@@ -83,7 +83,6 @@ D:\tutoriales_apis\csharpapigenerica\obj\Debug\net8.0\csharpapigenerica.genrunti
 D:\tutoriales_apis\csharpapigenerica\obj\Debug\net8.0\ref\csharpapigenerica.dll
 C:\apservweb\csharpapigenerica\bin\Debug\net8.0\appsettings.Development.json
 C:\apservweb\csharpapigenerica\bin\Debug\net8.0\appsettings.json
-C:\apservweb\csharpapigenerica\bin\Debug\net8.0\csharpapigenerica.staticwebassets.endpoints.json
 C:\apservweb\csharpapigenerica\bin\Debug\net8.0\csharpapigenerica.exe
 C:\apservweb\csharpapigenerica\bin\Debug\net8.0\csharpapigenerica.deps.json
 C:\apservweb\csharpapigenerica\bin\Debug\net8.0\csharpapigenerica.runtimeconfig.json
@@ -159,13 +158,6 @@ C:\apservweb\csharpapigenerica\obj\Debug\net8.0\csharpapigenerica.sourcelink.jso
 C:\apservweb\csharpapigenerica\obj\Debug\net8.0\scopedcss\bundle\csharpapigenerica.styles.css
 C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets.build.json
 C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets.development.json
-C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets\msbuild.csharpapigenerica.Microsoft.AspNetCore.StaticWebAssets.props
-C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets\msbuild.csharpapigenerica.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets\msbuild.build.csharpapigenerica.props
-C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.csharpapigenerica.props
-C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.csharpapigenerica.props
-C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets.pack.json
 C:\apservweb\csharpapigenerica\obj\Debug\net8.0\csharpap.E9D11A31.Up2Date
 C:\apservweb\csharpapigenerica\obj\Debug\net8.0\csharpapigenerica.dll
 C:\apservweb\csharpapigenerica\obj\Debug\net8.0\refint\csharpapigenerica.dll
@@ -173,3 +165,6 @@ C:\apservweb\csharpapigenerica\obj\Debug\net8.0\csharpapigenerica.xml
 C:\apservweb\csharpapigenerica\obj\Debug\net8.0\csharpapigenerica.pdb
 C:\apservweb\csharpapigenerica\obj\Debug\net8.0\csharpapigenerica.genruntimeconfig.cache
 C:\apservweb\csharpapigenerica\obj\Debug\net8.0\ref\csharpapigenerica.dll
+C:\apservweb\csharpapigenerica\bin\Debug\net8.0\csharpapigenerica.staticwebassets.endpoints.json
+C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\apservweb\csharpapigenerica\obj\Debug\net8.0\staticwebassets.build.endpoints.json

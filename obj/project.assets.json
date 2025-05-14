@@ -2375,7 +2375,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\USUARIOSS\\.nuget\\packages\\": {}
+    "C:\\Users\\NITRATO\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -2383,11 +2383,11 @@
       "projectUniqueName": "C:\\apservweb\\csharpapigenerica\\csharpapigenerica.csproj",
       "projectName": "csharpapigenerica",
       "projectPath": "C:\\apservweb\\csharpapigenerica\\csharpapigenerica.csproj",
-      "packagesPath": "C:\\Users\\USUARIOSS\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\NITRATO\\.nuget\\packages\\",
       "outputPath": "C:\\apservweb\\csharpapigenerica\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\USUARIOSS\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\NITRATO\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2411,7 +2411,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -2453,24 +2453,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.13, 8.0.13]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[8.0.13, 8.0.13]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.13, 8.0.13]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.13, 8.0.13]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -2479,7 +2461,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
