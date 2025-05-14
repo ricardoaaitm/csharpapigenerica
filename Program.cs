@@ -5,12 +5,16 @@ using Microsoft.Extensions.DependencyInjection; // Importa el espacio de nombres
 using Microsoft.Extensions.Hosting; // Importa el espacio de nombres necesario para trabajar con diferentes entornos (desarrollo, producción, etc.).
 using csharpapigenerica.Services; // Importa los servicios personalizados que se utilizarán en la aplicación.
 using Microsoft.OpenApi.Models; // 🔹 Importa el espacio de nombres necesario para habilitar Swagger.
+using Csharpapigenerica.Services;
+
 
 var builder = WebApplication.CreateBuilder(args); // Crea un constructor para configurar la aplicación web ASP.NET Core.
 
 builder.Services.AddControllers(); // Agrega soporte para controladores MVC, permitiendo manejar solicitudes HTTP a través de acciones en los controladores.
 builder.Services.AddSingleton<ControlConexion>(); // Registra el servicio ControlConexion como singleton, asegurando que haya una única instancia compartida en toda la aplicación.
 builder.Services.AddSingleton<TokenService>(); // Registra el servicio TokenService como singleton, asegurando una única instancia compartida en toda la aplicación.
+builder.Services.AddScoped<IndicadorService>();
+builder.Services.AddScoped<ServicioEntidad>();
 
 builder.Services.AddCors(options => // Configura CORS (Cross-Origin Resource Sharing) para la aplicación.
 {

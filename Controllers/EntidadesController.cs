@@ -23,13 +23,19 @@ namespace csharpapigenerica.Controllers
     {
         private readonly ControlConexion controlConexion; // Servicio para manejar la conexión a la base de datos.
         private readonly IConfiguration _configuration; // Configuración de la aplicación para obtener valores de appsettings.json.
-        
+        private readonly ServicioEntidad _servicioEntidad;
+
         // Constructor que inyecta los servicios necesarios
-        public EntidadesController(ControlConexion controlConexion, IConfiguration configuration)
+        public EntidadesController(
+            ControlConexion controlConexion,
+            IConfiguration configuration,
+            ServicioEntidad servicioEntidad)
         {
             this.controlConexion = controlConexion ?? throw new ArgumentNullException(nameof(controlConexion));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _servicioEntidad = servicioEntidad ?? throw new ArgumentNullException(nameof(servicioEntidad));
         }
+
 
         /// <summary>
         /// Endpoint de la raíz de la API.
@@ -290,6 +296,19 @@ namespace csharpapigenerica.Controllers
             }
         }
 
+    [HttpGet("{proyecto}/{tabla}/porarticulo/{id}")]
+public async Task<IActionResult> GetPorArticulo(string proyecto, string tabla, string id)
+{
+    var resultado = await _servicioEntidad.ObtenerPorParametroAsync(proyecto, tabla, "fkidarticulo", id);
+    return Ok(resultado);
+}
+
+[HttpGet("{proyecto}/{tabla}/porliteral/{id}")]
+public async Task<IActionResult> GetPorLiteral(string proyecto, string tabla, string id)
+{
+    var resultado = await _servicioEntidad.ObtenerPorParametroAsync(proyecto, tabla, "fkidliteral", id);
+    return Ok(resultado);
+}
 
 
         // Método para crear un parámetro de consulta SQL basado en el proveedor de base de datos.
@@ -846,6 +865,8 @@ public IActionResult EjecutarProcedimientoAlmacenado(
         return StatusCode(500, $"Error al ejecutar el SP: {ex.Message}");
     }
 }
+
+
 
 }
 }
