@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7594224A-2A0D-A242-97FE-B2229F561281}|csharpapigenerica.csproj|c:\\users\\daniel\\documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\controllers\\entidadescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7594224A-2A0D-A242-97FE-B2229F561281}|csharpapigenerica.csproj|solutionrelative:controllers\\entidadescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\Controllers\\LogginController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controllers\\LogginController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7594224A-2A0D-A242-97FE-B2229F561281}|csharpapigenerica.csproj|c:\\users\\daniel\\documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{7594224A-2A0D-A242-97FE-B2229F561281}|csharpapigenerica.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\Controllers\\EntidadesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controllers\\EntidadesController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7594224A-2A0D-A242-97FE-B2229F561281}|csharpapigenerica.csproj|c:\\users\\daniel\\documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{7594224A-2A0D-A242-97FE-B2229F561281}|csharpapigenerica.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\appsettings.Development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:appsettings.Development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,19 +31,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "LogginController.cs",
+              "DocumentMoniker": "C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\Controllers\\LogginController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LogginController.cs",
+              "ToolTip": "C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\Controllers\\LogginController.cs",
+              "RelativeToolTip": "Controllers\\LogginController.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAcwEcAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-15T23:54:46.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "EntidadesController.cs",
               "DocumentMoniker": "C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\Controllers\\EntidadesController.cs",
               "RelativeDocumentMoniker": "Controllers\\EntidadesController.cs",
               "ToolTip": "C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\Controllers\\EntidadesController.cs",
               "RelativeToolTip": "Controllers\\EntidadesController.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAgwFwAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAgwFUAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-09T22:45:05.512Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\appsettings.Development.json",
               "RelativeDocumentMoniker": "appsettings.Development.json",
@@ -47,12 +64,11 @@
               "RelativeToolTip": "appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-09T22:33:10.662Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-09T22:33:10.662Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Daniel\\Documents\\aplicaciones y servicios web\\back\\csharpapigenerica\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -60,8 +76,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-09T22:26:53.562Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-09T22:26:53.562Z"
             }
           ]
         }

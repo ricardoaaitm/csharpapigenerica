@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Bdlocal\\Bdlocal",
     "\\Controllers",
     "\\Properties",
     "\\Services"
   ],
+  "SelectedNode": "\\Controllers\\LogginController.cs",
   "PreviewInSolutionExplorer": false
 }

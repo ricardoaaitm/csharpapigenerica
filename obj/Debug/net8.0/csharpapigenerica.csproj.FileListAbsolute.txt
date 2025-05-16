@@ -253,3 +253,10 @@ C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\ob
 C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\obj\Debug\net8.0\csharpap.E9D11A31.Up2Date
 C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\obj\Debug\net8.0\csharpapigenerica.genruntimeconfig.cache
 C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\obj\Debug\net8.0\ref\csharpapigenerica.dll
+C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\bin\Debug\net8.0\package-lock.json
+C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\bin\Debug\net8.0\System.Data.SqlClient.dll
+C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\bin\Debug\net8.0\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\Daniel\Documents\aplicaciones y servicios web\back\csharpapigenerica\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
