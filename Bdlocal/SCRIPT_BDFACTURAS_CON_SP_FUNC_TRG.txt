@@ -445,4 +445,6 @@ INSERT INTO RutaRol(Ruta,Rol) VALUES('/rol','Administrador');
 INSERT INTO RutaRol(Ruta,Rol) VALUES('/usuario','Administrador');
 INSERT INTO RutaRol(Ruta,Rol) VALUES('/persona','Administrador');
 INSERT INTO RutaRol(Ruta,Rol) VALUES('/vendedor','Vendedor');
+INSERT INTO RutaRol(Ruta,Rol) VALUES('/cliente','Otro');
+INSERT INTO RutaRol(Ruta,Rol) VALUES('/rol','Otro');
 GO

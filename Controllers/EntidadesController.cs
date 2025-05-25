@@ -56,6 +56,7 @@ namespace csharpapigenerica.Controllers
             return Ok(mensaje);
         }
 
+        
 
         /// <summary>
         /// Obtiene todos los registros de una tabla específica en la base de datos.
